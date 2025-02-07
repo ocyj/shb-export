@@ -1,23 +1,20 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "python",
-        "request": "launch",
-        "name": "Debug Playwright Script",
-        "program": "${workspaceFolder}/scraper.py",
-        "console": "integratedTerminal",
-        "env": {
-          "HEADLESS": "False"
-        }
-      },
-      {
-        "name": "Python: Current File",
-        "type": "python",
-        "request": "launch",
-        "program": "${file}",
-        "console": "integratedTerminal"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Module scarper",
+      "type": "python",
+      "request": "launch",
+      "module": "scraper",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
     }
-    ]
-  }
-  
+  ]
+}

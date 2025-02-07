@@ -1,0 +1,5 @@
+aiofiles
+pillow
+pyzbar
+python-dotenv
+playwright
