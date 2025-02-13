@@ -4,3 +4,21 @@
 #
 #    pip-compile requirements.in
 #
+aiofiles==24.1.0
+    # via -r requirements.in
+greenlet==3.1.1
+    # via playwright
+pillow==11.1.0
+    # via -r requirements.in
+playwright==1.50.0
+    # via -r requirements.in
+pyee==12.1.1
+    # via playwright
+python-dotenv==1.0.1
+    # via -r requirements.in
+pyzbar==0.1.9
+    # via -r requirements.in
+segno==1.6.1
+    # via -r requirements.in
+typing-extensions==4.12.2
+    # via pyee

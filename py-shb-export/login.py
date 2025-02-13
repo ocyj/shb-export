@@ -10,7 +10,8 @@ from .constants import Constants, Selectors
 QR_SELECTOR = '[data-test-id="QrCode__image"]'
 PNR_SELECTOR = '[data-test-id="PersonalIdTypeInput__input"]'
 MBID_LOGON_SELECTOR = '[data-test-id="MBIDStartStage__loginButton"]'
-
+LOGOUT_BUTTON_SELECTOR = '[data-testid="ApplicationHeaderLogOutButton"]'
+LOGIN_BUTTON_SELECTOR = '[data-test-id="shb-sepu-header__login-button"]'
 
 def display_qr_in_terminal(data: str):
     qr = segno.make(data)
@@ -45,7 +46,7 @@ class LoginHandler:
         else:
             print('QR element not found.')
 
-    async def run(self):
+    async def login(self):
 
         await self.page.expose_function("notifyPython", lambda: asyncio.create_task(self._handle_element_update()))
         await self.page.goto(Constants.SHB_LOGON_URL)
@@ -82,3 +83,8 @@ class LoginHandler:
         # except asyncio.CancelledError:
         #     await self.page.evaluate(js_observer_stop)
         #     print("Observer stopped.")
+
+    async def logout(self):
+        await self.page.wait_for_selector(LOGOUT_BUTTON_SELECTOR)
+        await self.page.click(LOGOUT_BUTTON_SELECTOR)
+        await self.page.wait_for_selector(LOGIN_BUTTON_SELECTOR)

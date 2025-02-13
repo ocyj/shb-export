@@ -1,13 +1,14 @@
 # README
 
-Scrape your transactions from SHB web page.
+Export your transactions from Handelsbanken's web page.
 
 ## Set up for development
 
 1. `git clone ... && cd ...`
-1. `python -m venv vent`
-1. `.\venvScripts\Activate.ps1` | `source venv/bin/activate`
-1. `pip install -r requirements.txt`
+1. `python -m venv venv`
+1. `.\venv\Scripts\Activate.ps1` | `source venv/bin/activate`
+1. `pip install pip-tools`
+1. `pip-sync`
 1. `playwright install`
 1. Copy `example.env` to `.env`
 1. Edit `.env` as required

@@ -1,5 +1,6 @@
 aiofiles
 pillow
-pyzbar
-python-dotenv
 playwright
+python-dotenv
+pyzbar
+segno
