@@ -2,7 +2,6 @@ import io
 import asyncio
 from PIL import Image
 from pyzbar.pyzbar import decode
-from aiofiles import open as aio_open
 from .config import Config
 from .constants import Constants, Selectors
 from .terminal_writer import TerminalWriter
