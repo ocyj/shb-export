@@ -15,7 +15,7 @@ async def main():
 
     tw_writer = TerminalWriter()
     js_handler = JsHandler(page)
-    login_handler = LoginHandler(config, page, tw_writer)
+    login_handler = LoginHandler(config, page, tw_writer, js_handler)
 
     try:
         await js_handler.load_js()

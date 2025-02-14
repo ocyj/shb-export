@@ -1,5 +1,5 @@
-window.____PH____ = async (arg) => {
-    const response = await fetch("https://secure.handelsbanken.se/bb/seip/servlet/ipko?appName=ipko&appAction=GetAccountTransactions", {
+window.____PH_reqfn____ = async (arg) => {
+    const response = await fetch("____PH_requrl____", {
         method: "POST",
         // Optionally set headers you need (e.g. Content-Type for JSON)
         headers: {

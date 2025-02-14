@@ -6,17 +6,18 @@ from aiofiles import open as aio_open
 from .config import Config
 from .constants import Constants, Selectors
 from .terminal_writer import TerminalWriter
+from .js_handler import JsHandler
 
 
 class LoginHandler:
-    def __init__(self, config: Config, page, terminal_writer):
+    def __init__(self, config: Config, page, terminal_writer, js_handler : JsHandler):
         self.config = config
         self.page = page
         self.tw = terminal_writer
+        self.js = js_handler
 
 
     async def _handle_element_update(self):
-        
         qr_element = await self.page.query_selector(Selectors.SHB_QR_DISPLAY)
         if qr_element:
             
@@ -25,11 +26,6 @@ class LoginHandler:
             image = Image.open(io.BytesIO(qr_screenshot))
             decoded_objects = decode(image)
             if decoded_objects:
-                # for obj in decoded_objects:
-                #     qr_data = obj.data.decode("utf-8")
-                #     print(f'Decoded QR Code Data: {qr_data}')
-                #     print("\033[2J\033[H", end='')
-                #     display_qr_in_terminal(qr_data)
                 qr_data = decoded_objects[0].data.decode("utf-8")
                 self.tw.put_qr(qr_data)
             else:
@@ -40,16 +36,13 @@ class LoginHandler:
 
     async def login(self):
 
-        await self.page.expose_function("notifyPython", lambda: asyncio.create_task(self._handle_element_update()))
-        await self.page.goto(Constants.SHB_LOGON_URL)
-
-        async with aio_open("./py_shb_export/inject_observers.js", 'r', encoding='utf-8') as file:
-            js_observers_str = await file.read()
-
-        # js_observer_start = await load_js_script('./scraper/qr_observer_start.js')
-        # js_observer_stop = await load_js_script('./scraper/qr_observer_stop.js')
-        await self.page.evaluate(js_observers_str)
+        # TODO: Handle exposing function in JS handler class
+        await self.page.expose_function(self.js.JS_INJ_QR_OBS_CALLBACK, lambda: asyncio.create_task(self._handle_element_update()))
         
+        await self.page.goto(Constants.SHB_LOGON_URL)
+        await self.js.init_cookie_modal_observer()
+
+
         pnr_input = await self.page.wait_for_selector(Selectors.SHB_PNR_INPUT)
         await pnr_input.fill(self.config.PNR)
 
@@ -58,11 +51,10 @@ class LoginHandler:
         await login_button.click()
         
         await self.page.wait_for_selector(Selectors.SHB_QR_DISPLAY)
-        await self.page.evaluate("window.initQrObserver()")
-
         self.tw.clear()
-
         await self._handle_element_update()
+        await self.js.init_qr_observer()
+
         await self.page.wait_for_selector(Selectors.SHB_LOGOUT_BUTTON)
         self.tw.clear()
 
