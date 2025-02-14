@@ -6,6 +6,7 @@ class Config:
     def __init__(self):
         self.PNR = os.getenv('SHB_PERSONNUMMER')
         self.ACCOUNTS = os.getenv('SHB_ACCOUNTS').split(';')
+        self.IN_CONTAINER = (os.getenv('SHB_DOCKER', False)) == 'TRUE'
 
     @classmethod
     def load_from_env(cls):

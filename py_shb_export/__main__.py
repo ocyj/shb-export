@@ -11,7 +11,9 @@ from .terminal_writer import TerminalWriter
 
 async def main():
     config = Config.load_from_env()
-    playwright, browser, page = await init_browser(headless=False)
+    headless = config.IN_CONTAINER
+
+    playwright, browser, page = await init_browser(headless)
 
     tw_writer = TerminalWriter()
     js_handler = JsHandler(page)

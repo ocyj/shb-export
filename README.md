@@ -14,7 +14,7 @@ Export your transactions from Handelsbanken's web page.
 1. Edit `.env` as required
 1. Run with `python -m py_shb_export > shb_transactions.json`
 
-## TODO Build and run with docker
+## Build and run with docker
 
 1. `docker build -t shb-export .`
 1. `docker run --rm --env-file .env -a stdout -a stderr shb-export > shb_transactions.json`
