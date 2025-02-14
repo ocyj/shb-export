@@ -14,13 +14,12 @@ Export your transactions from Handelsbanken's web page.
 1. Edit `.env` as required
 1. Run with `python scraper.py`
 
-### Build and run with docker
+## Build and run with docker
 
 1. `docker build -t -t shb_scrape .`
 1. `docker run --rm --env-file .env scraper.py`
 
-
-### Disclaimer
+## Disclaimer
 
 This project is provided for educational and informational purposes only. The author makes no warranties, express or implied, regarding the accuracy, reliability, or suitability of the software for any particular purpose. Use of this software is at your own risk.
 

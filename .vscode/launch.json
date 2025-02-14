@@ -2,16 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: Module scarper",
-      "type": "python",
+      "name": "py module",
+      "type": "debugpy",
       "request": "launch",
-      "module": "scraper",
+      "module": "py_shb_export",
       "cwd": "${workspaceFolder}",
       "justMyCode": true
     },
     {
       "name": "Python: Current File",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal"

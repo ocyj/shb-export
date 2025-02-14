@@ -3,7 +3,7 @@ from aiofiles import open as aio_open
 from playwright.async_api import Page
 
 async def load_file(filename, placeholder = None):
-    async with aio_open(f'scraper/{filename}', 'r', encoding='utf-8') as file:
+    async with aio_open(f'py_shb_export/{filename}', 'r', encoding='utf-8') as file:
         file_content = await file.read()
         if(placeholder):
             return file_content.replace('____PH____', placeholder)

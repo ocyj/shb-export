@@ -6,28 +6,16 @@ from .browser import init_browser
 from .login import LoginHandler
 from .config import Config
 from .js_handler import JsHandler
+from .terminal_writer import TerminalWriter
 
 
 async def main():
-
-    if "--container" in sys.argv:
-        print("Running in container mode.")
-        import segno
-        
-        qr = segno.make("Hi there!")
-        with open('/dev/tty', 'w') as tty_dev:
-            qr.terminal(tty_dev, compact=True)
-        
-        exit()
-    else:
-        print("Running in non-container mode.")
-        exit()
-
     config = Config.load_from_env()
     playwright, browser, page = await init_browser(headless=False)
 
+    tw_writer = TerminalWriter()
     js_handler = JsHandler(page)
-    login_handler = LoginHandler(config, page)
+    login_handler = LoginHandler(config, page, tw_writer)
 
     try:
         await js_handler.load_js()
@@ -39,7 +27,8 @@ async def main():
             response = await js_handler.req_transactions(account)
             txn_data.append(create_account_data_from_response(response))
         
-        json.dumps(txn_data, indent=2)
+        tw_writer.put_json(txn_data)
+
         await login_handler.logout()
         pass
 
