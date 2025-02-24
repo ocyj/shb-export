@@ -1,5 +1,5 @@
 pillow
-playwright
+playwright==1.50.0
 python-dotenv
 pyzbar
 segno

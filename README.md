@@ -1,6 +1,6 @@
 # README
 
-Export your transactions from Handelsbanken's web page.
+Export your transactions from Handelsbanken's web page. Requires Python 3.13.
 
 ## Set up for development
 
@@ -10,13 +10,21 @@ Export your transactions from Handelsbanken's web page.
 1. `pip install pip-tools`
 1. `pip-sync`
 1. `playwright install`
-1. Copy `example.env` to `.env`
-1. Edit `.env` as required
-1. Run with `python -m py_shb_export > shb_transactions.json`
+1. Copy `example.env` to `.env`.
+1. Edit `.env` as required.
+1. Run with `python -m py_shb_export > shb_transactions.json`.
 
-## Build and run with docker
+## Docker
 
-1. `docker build -t shb-export .`
+Easiest way to run the exporter.
+
+### Build
+
+1. `version=$(python -c "import py_shb_export; print(py_shb_export.__version__)")`
+1. `docker build -t shb-export:$version .`
+
+### Run
+1. Make sure a valid `.env`-file exists in working directory.
 1. `docker run --rm --env-file .env -a stdout -a stderr shb-export > shb_transactions.json`
 
 ## Disclaimer
