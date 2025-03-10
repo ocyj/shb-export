@@ -2,3 +2,60 @@ venv
 .env
 tmp/
 __pycache__/
+.idea/
+
+
+# Compiled files
+bin/
+obj/
+
+# Visual Studio user-specific files
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+*.vcxproj.user
+*.vcproj.user
+*.dbmdl
+*.pfx
+*.publishsettings
+
+# Visual Studio temporary files
+*.tmp
+*.temp
+*.log
+*.sln.docstates
+
+# Visual Studio cache files
+.vs/
+.vscode/
+
+# Resharper/Rider files
+_ReSharper*/
+*.DotSettings.user
+*.DotSettings
+*.resharper
+*.sln.iml
+*.ide/
+
+# Rider-specific files
+.idea/
+
+# NuGet packages folder
+packages/
+*.nupkg
+*.snupkg
+
+# Backup & report files from testing tools
+TestResults/
+coverage/
+
+# Build artifacts
+x64/
+x86/
+Release/
+Debug/
+
+
+# Dotnet publish output
+publish/
