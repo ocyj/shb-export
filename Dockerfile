@@ -1,21 +1,25 @@
-FROM python:3.13-bookworm
 
+FROM mcr.microsoft.com/playwright/dotnet:v1.50.0-noble AS build
+
+WORKDIR /src
+
+# Copy the solution file and project files
+COPY ShbExport.sln ./
+
+COPY src/ src/
+
+# Restore NuGet packages
+RUN dotnet restore
+
+# Publish the console app in Release configuration
+RUN dotnet publish src/ShbExport.Console/ShbExport.Console.csproj -c Release -o /app
+
+# Use the same Playwright image as the runtime
+FROM mcr.microsoft.com/playwright/dotnet:v1.50.0-noble AS runtime
 WORKDIR /app
-COPY requirements.in /app/requirements.in
 
-RUN apt-get update && \
-    apt-get install -y libzbar0 && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip install --upgrade pip && pip install pip-tools && \
-    pip-compile requirements.in && \
-    pip install --no-cache-dir -r requirements.txt && \
-    playwright install --with-deps chromium
+# Copy the published output from the build stage
+COPY --from=build /app .
 
-COPY py_shb_export py_shb_export
-
-ENV SHB_DOCKER=TRUE
-
-# RUN adduser --disabled-password --gecos "" appuser
-# USER appuser
-
-CMD ["python", "-m", "py_shb_export"]
+# Set the entrypoint to run the console application
+ENTRYPOINT ["dotnet", "ShbExport.Console.dll"]
