@@ -27,10 +27,10 @@ class LoginHandler:
             if decoded_objects:
                 qr_data = decoded_objects[0].data.decode("utf-8")
                 self.tw.put_qr(qr_data)
-            else:
-                print('No QR Data found in the screenshot.')
-        else:
-            print('QR element not found.')
+            #else:
+                #print('No QR Data found in the screenshot.')
+        #else:
+            #print('QR element not found.')
 
 
     async def login(self):
