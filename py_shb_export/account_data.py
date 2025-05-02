@@ -9,15 +9,18 @@ def create_account_data_from_response(response):
 
     account_info["available_amount"] = response[k]["availableAmount"]
 
-    account_info["transactions"] = \
-    [
-        {
-            "date": t["transactionDate"],
-            "ledger_date": t["ledgerDate"],
-            "text": t["transactionText"],
-            "amount": t["transactionAmount"]
-        } for t in response["inlaAccountTransactions"]
-    ]
+    if "inlaAccountTransactions" in response:
+        account_info["transactions"] = \
+        [
+            {
+                "date": t["transactionDate"],
+                "ledger_date": t["ledgerDate"],
+                "text": t["transactionText"],
+                "amount": t["transactionAmount"]
+            } for t in response["inlaAccountTransactions"]
+        ]
+    else:
+        account_info["transactions"] = []
 
     return account_info
 

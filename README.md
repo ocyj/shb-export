@@ -25,7 +25,7 @@ Easiest way to run the exporter.
 
 ### Run
 1. Make sure a valid `.env`-file exists in working directory.
-1. `docker run --rm --env-file .env -a stdout -a stderr shb-export > shb_transactions.json`
+1. `docker run --rm --env-file .env -a stdout -a stderr ocyj/shb-export:0.1 > shb_transactions.json`
 
 ## Disclaimer
 
