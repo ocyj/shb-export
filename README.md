@@ -20,12 +20,16 @@ Easiest way to run the exporter.
 
 ### Build
 
-1. `version=$(python -c "import py_shb_export; print(py_shb_export.__version__)")`
-1. `docker build -t shb-export:$version .`
+PowerShell:
+```pwsh
+$version = python -c "import py_shb_export; print(py_shb_export.__version__)" | Out-String
+$version = $version.Trim()
+docker build -t "shb-export:$version" .
+```
 
 ### Run
 1. Make sure a valid `.env`-file exists in working directory.
-1. `docker run --rm --env-file .env -a stdout -a stderr ocyj/shb-export:0.1 > shb_transactions.json`
+1. `docker run --rm --env-file .env -a stdout -a stderr ocyj/shb-export:0.1 > shb_transactions.json` (or `shb-export:$version` as from above)
 
 ## Disclaimer
 

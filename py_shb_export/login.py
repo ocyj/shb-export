@@ -17,7 +17,7 @@ class LoginHandler:
 
 
     async def _handle_element_update(self):
-        qr_element = await self.page.query_selector(Selectors.SHB_QR_DISPLAY)
+        qr_element = await self.page.query_selector(f'{Selectors.SHB_QR_DISPLAY}:visible')
         if qr_element:
             
             qr_screenshot = await qr_element.screenshot()
@@ -49,7 +49,7 @@ class LoginHandler:
         login_button = await self.page.wait_for_selector(Selectors.SHB_MBID_LOGON)
         await login_button.click()
         
-        await self.page.wait_for_selector(Selectors.SHB_QR_DISPLAY)
+        await self.page.wait_for_selector(f'{Selectors.SHB_QR_DISPLAY}:visible')
         self.tw.clear()
         await self._handle_element_update()
         await self.js.init_qr_observer()
