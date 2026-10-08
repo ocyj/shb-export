@@ -12,7 +12,7 @@ Export your transactions from Handelsbanken's web page. Requires Python 3.13.
 1. `playwright install`
 1. Copy `example.env` to `.env`.
 1. Edit `.env` as required.
-1. Run with `python -m py_shb_export [--from YYYY-MM-DD] > shb_transactions.json`.
+1. Run with `python -m py_shb_export [--from YYYY-MM-DD] > shb_exported_transactions.json`.
 
 ## Docker
 
