@@ -1,6 +1,7 @@
 class Constants:
     SHB_LOGON_URL = "https://secure.handelsbanken.se/logon/se/priv/sv/mbidqr/"
     SHB_TXN_REQ_URL = "https://secure.handelsbanken.se/bb/seip/servlet/ipko?appName=ipko&appAction=GetAccountTransactions"
+    SHB_TXN_REQ_FROM_DATE_URL = "https://secure.handelsbanken.se/bb/seip/servlet/ipko?appName=ipko&appAction=ShowAccountTransactions"
 
 class Selectors:
     SHB_LOGIN_BUTTON = '[data-test-id="shb-sepu-header__login-button"]'

@@ -1,5 +1,6 @@
 import re
 import importlib.resources
+from datetime import date
 
 from playwright.async_api import Page
 
@@ -52,14 +53,16 @@ def _replace_placeholders(template: str, mapping: dict) -> str:
 
 # TODO: split me into multiple (three?) sub classes
 class JsHandler:
-    def __init__(self, page: Page):
+    def __init__(self, page: Page, fetch_with_from_date: bool):
         self.page = page
+
+        req_url = c.SHB_TXN_REQ_URL if not fetch_with_from_date else c.SHB_TXN_REQ_FROM_DATE_URL
 
         self.JS_RES_REQ_ACCTS_FILE = 'req_account_transactions.js'
         self.JS_RES_REQ_FN = '____get_transactions'
         self.JS_RES_REQ_ACCTS_MAPPINGS = {
             'reqfn': self.JS_RES_REQ_FN,
-            'requrl': c.SHB_TXN_REQ_URL
+            'requrl': req_url
             }
         
         self.JS_INJ_QR_OBS_FILE = 'inject_qr_observer.js'
@@ -91,8 +94,14 @@ class JsHandler:
         await self.page.add_init_script(script=js_cookie_modal)
 
 
-    async def req_transactions(self, account_number: str):
+    async def req_transactions(self, account_number: str, from_date = None):
         arg = {'account': f'{account_number}~INLÅ~N'}
+        if from_date:
+            arg['dateFrom'] = from_date
+            arg['dateTo'] = date.today().isoformat()
+            arg['transactionType'] = 'A'
+            arg['amountFrom'] = ''
+            arg['amountTo'] = ''
         return await self.page.evaluate(f'(arg) => window.{self.JS_RES_REQ_FN}(arg)', arg)
 
 

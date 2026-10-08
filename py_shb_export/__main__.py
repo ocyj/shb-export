@@ -10,13 +10,13 @@ from .terminal_writer import TerminalWriter
 
 
 async def main():
-    config = Config.load_from_env()
+    config = Config.load()
     headless = config.IN_CONTAINER
 
     playwright, browser, page = await init_browser(headless)
 
     tw_writer = TerminalWriter()
-    js_handler = JsHandler(page)
+    js_handler = JsHandler(page, fetch_with_from_date=config.FROM_DATE != None)
     login_handler = LoginHandler(config, page, tw_writer, js_handler)
 
     try:
@@ -26,7 +26,7 @@ async def main():
         txn_data = []
         
         for account in config.ACCOUNTS:
-            response = await js_handler.req_transactions(account)
+            response = await js_handler.req_transactions(account, config.FROM_DATE)
             txn_data.append(create_account_data_from_response(response))
         
         tw_writer.put_json(txn_data)
