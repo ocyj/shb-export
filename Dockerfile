@@ -24,4 +24,5 @@ RUN pip install --upgrade pip && \
 # Copy in app code last
 COPY py_shb_export py_shb_export
 
-CMD ["python", "-m", "py_shb_export"]
+ENTRYPOINT ["python", "-m", "py_shb_export"]
+CMD []

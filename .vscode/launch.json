@@ -24,9 +24,9 @@
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true,
-      "args": [
+      "args": ["--from", "2025-08-01",
         ">",
-        "tmp/transactions.json"
+        "tmp/transactions_01.json"
       ]
     }
   ]
